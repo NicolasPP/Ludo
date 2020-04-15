@@ -93,7 +93,7 @@ def draw_board():
     pygame.draw.circle(table, (0,128,0), (760,640), 20, 0)
     # button
     dice.draw(table,color)
-    #line below button
+    #line below buttonsdsd
     pygame.draw.line(table, color, (280, 880), (560,880), width)
 
 
