@@ -6,7 +6,8 @@ board.title("Ludo")
 
 
 
-main_frame = Frame(board,bg = "black", height = 900 , width = 900).grid(row = 0, column = 0,columnspan = 3, rowspan = 3)
+main_frame = Frame(board,bg = "black", height = 900 , width = 900)
+main_frame.grid(row = 0, column = 0,columnspan = 3, rowspan = 3)
 
 
 top_left = Frame(main_frame, bg = "blue",height = 300 , width = 300)
@@ -53,9 +54,6 @@ can_bottom_middle.grid(row = 0 , column = 0,sticky = (N,W,E,S))
 can_bottom_right = Canvas(bottom_right,highlightbackground="black", bg = "green",height = 300 , width = 300)
 can_bottom_right.grid(row = 0 , column = 0,sticky = (N,W,E,S))
 
-
-## players
-#can_top_left.create_oval()
 
 
 board.mainloop()
