@@ -16,7 +16,6 @@ main_frame.grid(row = 0, column = 0,columnspan = 3, rowspan = 3)
 
 for i in range(8):
      tiles.append(main_frame.create_rectangle(1000-(i*50),350,1050-(i*50),470, fill = "white"))
-     main_frame.create_text(main_frame.coords(tiles[i])[0]+20,main_frame.coords(tiles[i])[1]+20, text = i+1)
 
 for i in range(8):
      tiles.append(main_frame.create_rectangle(580,350-(i*50),700,400-(i*50), fill = "white"))
@@ -46,7 +45,13 @@ for i in range(8):
      tiles.append(main_frame.create_rectangle(650+(i*50),700,700+(i*50),580, fill = "white"))
 
 tiles.append(main_frame.create_rectangle(1000,470,1050,580, fill = "white"))
-print(main_frame.coords(1))
+
+for i in range(68):
+     if i == 24:
+          main_frame.create_text(main_frame.coords(tiles[i])[0]+60,main_frame.coords(tiles[i])[1]+10, text = i+1)
+     else:
+          main_frame.create_text(main_frame.coords(tiles[i])[0]+10,main_frame.coords(tiles[i])[1]+10, text = i+1)
+
 print(tiles)
 
 top_left_rec = main_frame.create_rectangle(0,0,350,350, fill = "blue")
