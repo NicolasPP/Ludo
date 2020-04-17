@@ -153,8 +153,10 @@ while True:
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            dice_roll()
+        if event.type == pygame.MOUSEBUTTONUP:
+            if dice.isOver(pygame.mouse.get_pos()):
+                dice_roll()
+
 
     draw_board()
     pygame.display.update()
