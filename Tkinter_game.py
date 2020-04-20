@@ -229,7 +229,7 @@ def dice_roll():
 def turn():
     spaces = 2
     for i in current_player:
-        if i.current_tile == 0 and (a == 5 or b == 5) and spaces >= 1:
+        if i.current_tile == 0 and (a == 5 or b == 5 or (a + b) == 5) and spaces >= 1:
             i.move(4+players.index(current_player)*17)
             spaces -= spaces
         
@@ -240,7 +240,7 @@ def turn():
 dice = Button(menu, text = "roll dice", font=("Helvetica", 32), command = dice_roll, relief = SUNKEN)
 dice.grid(row = 0, column = 0,sticky = (N,E,S,W))
 
-
+b_roll = main_frame.create_rectangle(0,0,100,50, fill = "white")
 
 current_player = yellow
 players = [yellow, blue, red , green]
