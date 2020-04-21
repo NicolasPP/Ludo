@@ -60,17 +60,16 @@ class Counter:
 
     def __repr__(self):
             return str(self)
-    def move(self, tile_destination, tile_order_destination):
+    def move(self, tile_order_destination):
         if self.current_tile_order == 0:
             self.current_tile_order = 1
-        for i in range(self.current_tile_order,tile_order_destination+1):
-            if self.block:
-                move_object(main_frame,self.can_circle,(main_frame.coords(order_list[players.index(current_player)][i])[0]+20,main_frame.coords(order_list[players.index(current_player)][i])[1]), 15)
-            else:
-                print(order_list[players.index(current_player)][i])
-                move_object(main_frame,self.can_circle,(main_frame.coords(order_list[players.index(current_player)][i])[0],main_frame.coords(order_list[players.index(current_player)][i])[1]), 15)
+        if self.block:
+            move_object(main_frame,self.can_circle,(main_frame.coords(order_list[players.index(current_player)][tile_order_destination])[0]+20,main_frame.coords(order_list[players.index(current_player)][tile_order_destination])[1]), 5)
+        else:
+            print(order_list[players.index(current_player)][i])
+            move_object(main_frame,self.can_circle,(main_frame.coords(order_list[players.index(current_player)][tile_order_destination])[0],main_frame.coords(order_list[players.index(current_player)][tile_order_destination])[1]), 5)
         block = False
-        self.current_tile = tile_destination
+        self.current_tile = order_list[players.index(current_player)][tile_order_destination]
         self.current_tile_order = tile_order_destination
     def hui_jia(self):
         self.current_tile = 0
@@ -272,7 +271,7 @@ def eat_player(counter, dice_roll):
     for j in players:
         for b in j:
             if order_list[players.index(current_player)][counter.current_tile_order + dice_roll] == b.current_tile:
-                counter.move(b.current_tile, counter.current_tile_order + dice_roll)
+                counter.move(counter.current_tile_order + dice_roll)
                 b.hui_jia
                 
                 
@@ -289,7 +288,6 @@ def dice_roll():
     dice.config(state = "disabled")
     a = random.randint(4,5)
     b = random.randint(4,5)
-    a = b
     a_l = Label(menu, text = a,font=("Helvetica", 32), bg = "gray")
     a_l.grid(row = 1 ,column = 0,sticky = (N,E,S,W))
     b_l = Label(menu, text = b,font=("Helvetica", 32),bg = "gray")
@@ -317,9 +315,14 @@ def dice_roll():
         prev = False
         dice.config(state = "normal") 
 
-
+currentCounter = 0
+def click(event):
+    currentCounter.move(currentCounter.current_tile_order+a)
+      
 def turn():
     spaces = 2
+    aUsed = False
+    bUsed = False
     for i in current_player:
         if i.current_tile_order == 1:
             spaces -= 1
@@ -328,30 +331,52 @@ def turn():
             if (a == 5 and b == 5 ):
                 if spaces != 2:
                     i.block = True
-                    i.move(5+players.index(current_player)*17,1)
+                    i.move(1)
                     spaces -= 1
+                    bUsed = True
                 else:
-                    i.move(5+players.index(current_player)*17,1)
+                    i.move(1)
                     spaces -= 1
+                    aUsed = True
             elif (a + b) == 5:
                 if spaces != 2:
                     i.block = True
-                    i.move(5+players.index(current_player)*17,1)
-                    brea
+                    i.move(1)
+                    bUsed = True
+                    aUsed = True
+                    break
                 else:
-                    i.move(5+players.index(current_player)*17,1)
+                    i.move(1)
+                    bUsed = True
+                    aUsed = True
                     break
             elif (a==5 or b==5):
                 if spaces != 2:
                     i.block = True
-                    i.move(5+players.index(current_player)*17,1)
+                    i.move(1)
+                    if a == 5:
+                        aUsed = True
+                    else:
+                        bUsed = True
                     break
                 else:
-                    i.move(5+players.index(current_player)*17,1)
-                    break         
-    
-def click(event):
-    print("click")    
+                    i.move(1)
+                    if a == 5:
+                        aUsed = True
+                    else:
+                        bUsed = True
+                    break
+    for counter in current_player:
+        if counter.current_tile !=0 and (not aUsed) and valid_move(counter, a):    
+            button_a = main_frame.create_rectangle(main_frame.coords(counter.current_tile)[0], main_frame.coords(counter.current_tile)[1]-20,main_frame.coords(counter.current_tile)[0]+20,main_frame.coords(counter.current_tile)[1], fill="grey", outline="grey60")
+            buttonTXTa = main_frame.create_text(main_frame.coords(counter.current_tile)[0], main_frame.coords(counter.current_tile)[1]-20, text = "booya", font=("Helvetica", 10))
+            global currentCounter 
+            currentCounter = counter
+            main_frame.tag_bind(button_a, "<Button-1>", click)
+            main_frame.tag_bind(buttonTXTa, "<Button-1>", click)
+        
+
+  
                     
 
 ## dice
