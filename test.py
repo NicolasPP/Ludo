@@ -1,4 +1,4 @@
-
+a = ["a","b","c","d"]
 yellow_tile_order = {}
 blue_tile_order = {}
 red_tile_order = {}
@@ -31,7 +31,7 @@ for j in range(1,73):
     else: 
         green_tile_order[j] = (j+55)%69 
 
-for i in range(1,1):
-    print(i)
-        
-        
+
+
+    
+
