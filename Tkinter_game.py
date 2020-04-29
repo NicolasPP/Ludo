@@ -65,11 +65,11 @@ class Counter:
         if self.current_tile_order == 0:
             self.current_tile_order = 1
         if tile_order_destination == 72:
-            move_object(main_frame,self.can_circle, (525, 525), 1)
+            move_object(main_frame,self.can_circle, (525, 525), 0)
         elif self.block:
-            move_object(main_frame,self.can_circle,(main_frame.coords(order_list[players.index(current_player)][tile_order_destination])[0]+25,main_frame.coords(order_list[players.index(current_player)][tile_order_destination])[1]), 1)
+            move_object(main_frame,self.can_circle,(main_frame.coords(order_list[players.index(current_player)][tile_order_destination])[0]+25,main_frame.coords(order_list[players.index(current_player)][tile_order_destination])[1]), 0)
         else:
-            move_object(main_frame,self.can_circle,(main_frame.coords(order_list[players.index(current_player)][tile_order_destination])[0],main_frame.coords(order_list[players.index(current_player)][tile_order_destination])[1]), 1)
+            move_object(main_frame,self.can_circle,(main_frame.coords(order_list[players.index(current_player)][tile_order_destination])[0],main_frame.coords(order_list[players.index(current_player)][tile_order_destination])[1]), 0)
         self.block = False
         self.current_tile = order_list[players.index(current_player)][tile_order_destination]
         self.current_tile_order = tile_order_destination                                                  
@@ -280,11 +280,11 @@ def change_turn():
 
 def eat_player(counter, dice_roll, is_a):
     global aUsed, bUsed, a, b
-    for j in players:
-        for b in j:
-            if order_list[players.index(current_player)][counter.current_tile_order + dice_roll] == b.current_tile:
+    for player in players:
+        for counters in player:
+            if order_list[players.index(current_player)][counter.current_tile_order + dice_roll] == counters.current_tile:
                 counter.move(counter.current_tile_order + dice_roll)
-                b.hui_jia()
+                counters.hui_jia()
     if is_a:
         a = 20
         aUsed = False
