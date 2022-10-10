@@ -4,4 +4,4 @@ Ludo
 - implementing Ludo
 
 using tkinter
-began in - 7 Jun 2020
+began in - 15 Apr 2020
